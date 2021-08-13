@@ -1,0 +1,24 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int solve(final List<Integer> A, final List<Integer> B1, final List<Integer> C1) {
+        int maxCapacity=Collections.max(A)+1;
+        ArrayList<Integer> B= new ArrayList<>(B1);
+        ArrayList<Integer> C= new ArrayList<>(C1);
+        int tempIndex=B.indexOf(1);
+        Collections.swap(B,0, tempIndex);
+        Collections.swap(C,0, tempIndex);
+        
+        int dp[][]= new int[B.size()][maxCapacity];
+        for (int i=0; i<maxCapacity; i++) dp[0][i]=i*C.get(0);
+        for (int i=1; i<B.size(); i++){
+            for (int j=0; j<maxCapacity; j++){
+                if (B.get(i)>j) dp[i][j]=dp[i-1][j];
+                else dp[i][j]=Math.min(dp[i-1][j], dp[i][j-B.get(i)]+C.get(i));
+            }
+        }
+        int result=0;
+        for (Integer y: A) result=result+dp[B.size()-1][y];
+       
+        return result;
+    }
+}

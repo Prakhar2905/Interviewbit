@@ -1,0 +1,16 @@
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> a) {
+        int max = Integer.MIN_VALUE;
+        int dp[] = new int[a.get(a.size()-1).size()];
+        max = helper(0,0,dp,a);
+        return (max);
+    }
+    public int helper(int i,int j,int dp[],ArrayList<ArrayList<Integer>> arr)
+    {
+        if((i<arr.size())&&(j<arr.get(arr.size()-1).size()))
+        {
+            return(arr.get(i).get(j)+Math.min(helper(i+1,j,dp,arr),helper(i+1,j+1,dp,arr)));
+        }
+        return 0;
+    }
+}
